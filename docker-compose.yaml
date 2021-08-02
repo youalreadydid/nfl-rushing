@@ -1,0 +1,33 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - "build:/app/_build"
+      - "deps:/app/deps"
+      - "node-modules:/app/assets/node_modules"
+    ports:
+      - "4000:4000"
+    command: sh -c 'cd assets && npm install; cd /app && mix do deps.get, phx.server'
+    environment:
+      - MIX_ENV=dev
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - "build:/app/_build"
+      - "deps:/app/deps"
+      - "node-modules:/app/assets/node_modules"
+    command: mix do deps.get --only test, test --trace --color
+    environment:
+      - MIX_ENV=test
+
+volumes:
+  build:
+  deps:
+  node-modules:
