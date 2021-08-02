@@ -1,0 +1,37 @@
+name: NFL Rushing
+
+on: push
+
+env:
+  MIX_ENV: test
+
+jobs:
+  test:
+    name: Static code analysis and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-elixir@v1
+        with:
+          elixir-version: "1.12"
+          otp-version: "24"
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-mix-${{ hashFiles('mix.lock') }}
+          path: |
+            deps
+            _build
+            priv/plts
+      - name: Install dependencies
+        run: |
+          mix deps.get
+          mix deps.compile
+          mix dialyzer --plt
+      - name: Format
+        run: mix format --check-formatted
+      - name: Credo
+        run: mix credo --strict
+      - name: Dialyzer
+        run: mix dialyzer --no-check
+      - name: Tests
+        run: mix coveralls --trace --color
