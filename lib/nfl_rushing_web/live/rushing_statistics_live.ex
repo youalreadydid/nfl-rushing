@@ -5,6 +5,6 @@ defmodule NflRushingWeb.RushingStatisticsLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, assign(socket, rushing_statistics: [])}
   end
 end

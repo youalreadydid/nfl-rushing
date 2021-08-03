@@ -3,13 +3,13 @@ defmodule NflRushingWeb.RushingStatisticsLiveTest do
 
   import Phoenix.LiveViewTest
 
-  test "disconnected render", %{conn: conn} do
-    {:ok, _rushing_statistics_live, disconnected_html} = live(conn, "/")
-    assert disconnected_html =~ "NFL Rushing"
+  test "renders title when disconnected", %{conn: conn} do
+    {:ok, _live, disconnected} = live(conn, "/")
+    assert disconnected =~ "NFL Rushing"
   end
 
-  test "connected render", %{conn: conn} do
-    {:ok, rushing_statistics_live, disconnected_html} = live(conn, "/")
-    assert render(rushing_statistics_live) =~ "Player</th><th>Team</th><th>Pos</th>"
+  test "renders no statistics", %{conn: conn} do
+    {:ok, live, _disconnected} = live(conn, "/")
+    assert render(live) =~ "<tr><td></td>"
   end
 end
