@@ -1,3 +1,4 @@
+# credo:disable-for-this-file
 defmodule NflRushingWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
@@ -31,7 +32,13 @@ defmodule NflRushingWeb.ConnCase do
     end
   end
 
-  setup _tags do
+  setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(NflRushing.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(NflRushing.Repo, {:shared, self()})
+    end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

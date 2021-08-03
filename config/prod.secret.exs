@@ -4,6 +4,8 @@
 # remember to add this file to your .gitignore.
 use Mix.Config
 
+config :nfl_rushing, NflRushing.Repo, database: "priv/database/sqlite-prod.db"
+
 secret_key_base =
   System.get_env("SECRET_KEY_BASE") ||
     raise """
