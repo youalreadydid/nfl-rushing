@@ -54,4 +54,15 @@ We will evaluate you on your ability to solve the problem defined in the require
 If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
 
 ### Installation and running this solution
-... TODO
+
+You need to install [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) to run this solution.
+
+To access the solution at `http://localhost:4000`, navigate to the project root folder in a terminal and run:
+```bash
+$ docker-compose up dev
+```
+
+To run the test suite, type the following command:
+```bash
+$ docker-compose run --rm test
+```

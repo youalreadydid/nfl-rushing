@@ -35,4 +35,4 @@ jobs:
       - name: Dialyzer
         run: mix dialyzer --no-check
       - name: Tests
-        run: mix coveralls --trace --color
+        run: mix test --trace --color

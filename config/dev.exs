@@ -1,5 +1,8 @@
 use Mix.Config
 
+# Configure your database
+config :nfl_rushing, NflRushing.Repo, database: "priv/database/sqlite-dev.db"
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
