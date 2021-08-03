@@ -10,7 +10,7 @@ services:
       - "node-modules:/app/assets/node_modules"
     ports:
       - "4000:4000"
-    command: sh -c 'cd assets && npm install; cd /app && mix do deps.get, phx.server'
+    command: sh -c 'cd assets && npm install; cd /app && mix do deps.get, ecto.setup, phx.server'
     environment:
       - MIX_ENV=dev
 
