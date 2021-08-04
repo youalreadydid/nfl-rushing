@@ -20,7 +20,14 @@ defmodule ImportRushingStatisticsData do
 
   defp insert_rushing_statistics(stat) do
     {total_yards, _} = stat["Yds"] |> to_string() |> Integer.parse()
-    longest_rush = to_string(stat["Lng"])
+
+    {longest_rush, longest_rush_touchdown} =
+      if is_integer(stat["Lng"]) do
+        {stat["Lng"], false}
+      else
+        {longest_rush, touchdown} = Integer.parse(stat["Lng"])
+        {longest_rush, touchdown == "T"}
+      end
 
     attrs = %{
       name: stat["Player"],
@@ -33,6 +40,7 @@ defmodule ImportRushingStatisticsData do
       yards_per_game: stat["Yds/G"],
       total_touchdowns: stat["TD"],
       longest_rush: longest_rush,
+      longest_rush_touchdown: longest_rush_touchdown,
       first_downs: stat["1st"],
       first_down_percentage: stat["1st%"],
       yards_each_20_plus: stat["20+"],

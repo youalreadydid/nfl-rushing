@@ -50,7 +50,8 @@ defmodule NflRushing.RushingStatistics do
     field :average_yards_per_attempt, :float
     field :yards_per_game, :float
     field :total_touchdowns, :integer
-    field :longest_rush, :string
+    field :longest_rush, :integer
+    field :longest_rush_touchdown, :boolean, default: false
     field :first_downs, :integer
     field :first_down_percentage, :float
     field :yards_each_20_plus, :integer
