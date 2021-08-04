@@ -19,8 +19,8 @@ defmodule ImportRushingStatisticsData do
   end
 
   defp insert_rushing_statistics(stat) do
-    {total_yards, _} = stat["Yds"] |> to_string() |> Integer.parse()
-    longest_rush = to_string(stat["Lng"])
+    total_yards = parse_total_yards(stat)
+    {longest_rush, longest_rush_touchdown} = parse_longest_rush(stat)
 
     attrs = %{
       name: stat["Player"],
@@ -33,6 +33,7 @@ defmodule ImportRushingStatisticsData do
       yards_per_game: stat["Yds/G"],
       total_touchdowns: stat["TD"],
       longest_rush: longest_rush,
+      longest_rush_touchdown: longest_rush_touchdown,
       first_downs: stat["1st"],
       first_down_percentage: stat["1st%"],
       yards_each_20_plus: stat["20+"],
@@ -40,9 +41,27 @@ defmodule ImportRushingStatisticsData do
       fumbles: stat["FUM"]
     }
 
+    fields = Map.keys(attrs)
+
     %RushingStatistics{}
-    |> Ecto.Changeset.cast(attrs, @fields)
+    |> Ecto.Changeset.cast(attrs, fields)
     |> Repo.insert!()
+  end
+
+  defp parse_total_yards(stat) do
+    {total_yards, ""} =
+      stat["Yds"] |> to_string() |> String.replace(~r/[^\d|\.]/, "") |> Integer.parse()
+
+    total_yards
+  end
+
+  defp parse_longest_rush(stat) do
+    if is_integer(stat["Lng"]) do
+      {stat["Lng"], false}
+    else
+      {longest_rush, touchdown} = Integer.parse(stat["Lng"])
+      {longest_rush, touchdown == "T"}
+    end
   end
 end
 

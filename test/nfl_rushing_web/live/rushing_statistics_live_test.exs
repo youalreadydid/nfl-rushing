@@ -31,11 +31,20 @@ defmodule NflRushingWeb.RushingStatisticsLiveTest do
     refute render(live) =~ "<td>Max Smith</td>"
   end
 
+  test "renders sorted rushing statistics", %{conn: conn} do
+    _stat_one = insert!(:rushing_statistics, %{total_yards: 123})
+    _stat_two = insert!(:rushing_statistics, %{total_yards: 321})
+    {:ok, live, _disconnected} = live(conn, "/?sort=total_yards&order=desc")
+
+    assert String.match?(render(live), ~r/<td>321<\/td>.*<td>123<\/td>/)
+  end
+
   describe "handle_event/2 for search" do
     test "redirects to searched players' rushing statistics", %{conn: conn} do
-      {:ok, live, _disconnected} = live(conn, "/")
+      expected_url = "/?search=john&sort=total_yards&order=desc"
+      {:ok, live, _disconnected} = live(conn, "/?sort=total_yards&order=desc")
 
-      {:error, {:live_redirect, %{kind: :push, to: "/?search=john"}}} =
+      {:error, {:live_redirect, %{kind: :push, to: ^expected_url}}} =
         live
         |> element("form")
         |> render_submit(%{q: "john"})

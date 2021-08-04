@@ -34,6 +34,9 @@ defmodule NflRushingWeb.StatisticsComponent do
     else
       ~L"""
       <%= for stat <- statistics do %>
+        <% ltd = if stat.longest_rush_touchdown, do: "T" %>
+        <% longest_rush = "#{stat.longest_rush}#{ltd}" %>
+
         <tr>
           <td><%= stat.name %></td>
           <td><%= stat.team %></td>
@@ -44,7 +47,7 @@ defmodule NflRushingWeb.StatisticsComponent do
           <td><%= stat.average_yards_per_attempt %></td>
           <td><%= stat.yards_per_game %></td>
           <td><%= stat.total_touchdowns %></td>
-          <td><%= stat.longest_rush %></td>
+          <td><%= longest_rush %></td>
           <td><%= stat.first_downs %></td>
           <td><%= stat.first_down_percentage %></td>
           <td><%= stat.yards_each_20_plus %></td>
