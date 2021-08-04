@@ -10,10 +10,8 @@ defmodule NflRushingWeb.RushingStatisticsLiveTest do
   end
 
   test "renders no statistics", %{conn: conn} do
-    with_mock NflRushing, list_rushing_statistics: fn -> [] end do
-      {:ok, live, _disconnected} = live(conn, "/")
-      assert render(live) =~ "<tr></tr>"
-    end
+    {:ok, live, _disconnected} = live(conn, "/")
+    assert render(live) =~ "<tr></tr>"
   end
 
   test "renders a rushing statistics", %{conn: conn} do
