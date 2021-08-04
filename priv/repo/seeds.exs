@@ -9,3 +9,7 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+NflRushing.Repo.delete_all(NflRushing.RushingStatistics)
+Code.eval_file("#{File.cwd!()}/priv/scripts/import_rushing_data.exs")
+ImportRushingStatisticsData.run()

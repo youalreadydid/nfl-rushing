@@ -23,7 +23,7 @@ services:
       - "build:/app/_build"
       - "deps:/app/deps"
       - "node-modules:/app/assets/node_modules"
-    command: mix do deps.get --only test, test --trace --color, credo --strict, dialyzer
+    command: mix do deps.get --only test, format --check-formatted, test --trace --color, credo --strict, dialyzer
     environment:
       - MIX_ENV=test
 
