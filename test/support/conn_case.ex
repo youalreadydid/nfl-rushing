@@ -24,6 +24,7 @@ defmodule NflRushingWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import NflRushingWeb.ConnCase
+      import NflRushing.Fixtures
 
       alias NflRushingWeb.Router.Helpers, as: Routes
 
