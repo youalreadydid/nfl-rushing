@@ -5,13 +5,19 @@ defmodule NflRushingWeb.RushingStatisticsLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    Process.send(self(), :update, [])
-    {:ok, assign(socket, rushing_statistics: [])}
+    {:ok, assign(socket, rushing_statistics: [], search: nil)}
   end
 
   @impl true
-  def handle_info(:update, socket) do
-    stats = NflRushing.list_rushing_statistics()
-    {:noreply, assign(socket, rushing_statistics: stats)}
+  def handle_params(params, _uri, socket) do
+    search = params["search"]
+    stats = NflRushing.search_rushing_statistics(search)
+    {:noreply, assign(socket, rushing_statistics: stats, search: search)}
+  end
+
+  @impl true
+  def handle_event("search", %{"q" => name}, socket) do
+    {:noreply,
+     push_redirect(socket, to: Routes.rushing_statistics_path(socket, :index, search: name))}
   end
 end

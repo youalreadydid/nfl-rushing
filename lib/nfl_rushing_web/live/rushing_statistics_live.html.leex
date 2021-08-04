@@ -1,3 +1,11 @@
-<section class="statistics">
+<section class="row">
+  <div class="column">
+    <form phx-submit="search">
+      <input type="text" name="q" value="<%= @search %>" placeholder="Player's name" autocomplete="on"/>
+      <button type="submit" phx-disable-with="Searching...">Search</button>
+    </form>
+  </div>
+</section>
+<section name="statistics" class="row">
   <%= live_component NflRushingWeb.StatisticsComponent, rushing_statistics: @rushing_statistics %>
 </section>
