@@ -36,6 +36,7 @@ defmodule NflRushing.MixProject do
       {:excoveralls, "~> 0.10", only: :test},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:mock, "~> 0.3", only: :test},
       {:phoenix, "~> 1.5.7"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},

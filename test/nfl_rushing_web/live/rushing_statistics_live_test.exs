@@ -1,7 +1,7 @@
 defmodule NflRushingWeb.RushingStatisticsLiveTest do
   use NflRushingWeb.ConnCase
-
   import Phoenix.LiveViewTest
+  import Mock
 
   test "renders title and empty statistics table when disconnected", %{conn: conn} do
     {:ok, _live, disconnected} = live(conn, "/")
@@ -10,8 +10,10 @@ defmodule NflRushingWeb.RushingStatisticsLiveTest do
   end
 
   test "renders no statistics", %{conn: conn} do
-    {:ok, live, _disconnected} = live(conn, "/")
-    assert render(live) =~ "<tr></tr>"
+    with_mock NflRushing, list_rushing_statistics: fn -> [] end do
+      {:ok, live, _disconnected} = live(conn, "/")
+      assert render(live) =~ "<tr></tr>"
+    end
   end
 
   test "renders a rushing statistics", %{conn: conn} do
