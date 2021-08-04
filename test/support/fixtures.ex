@@ -1,6 +1,8 @@
 defmodule NflRushing.Fixtures do
   @moduledoc false
 
+  alias NflRushing.Repo
+
   @spec build(atom) :: struct
   def build(schema)
 
@@ -23,4 +25,11 @@ defmodule NflRushing.Fixtures do
       fumbles: 1
     }
   end
+
+  @spec build(atom, map | keyword) :: struct
+  def build(schema, attrs), do: schema |> build() |> struct(attrs)
+
+  @spec insert!(atom, map) :: struct
+  def insert!(schema, attrs \\ %{}),
+    do: schema |> build(attrs) |> Repo.insert!(on_conflict: :nothing)
 end
