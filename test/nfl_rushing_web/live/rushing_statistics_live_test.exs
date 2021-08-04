@@ -30,4 +30,15 @@ defmodule NflRushingWeb.RushingStatisticsLiveTest do
     assert render(live) =~ "<td>John Stone</td>"
     refute render(live) =~ "<td>Max Smith</td>"
   end
+
+  describe "handle_event/2 for search" do
+    test "redirects to searched players' rushing statistics", %{conn: conn} do
+      {:ok, live, _disconnected} = live(conn, "/")
+
+      {:error, {:live_redirect, %{kind: :push, to: "/?search=john"}}} =
+        live
+        |> element("form")
+        |> render_submit(%{q: "john"})
+    end
+  end
 end
