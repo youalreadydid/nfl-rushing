@@ -18,7 +18,7 @@ defmodule NflRushingTest do
       assert NflRushing.search_rushing_statistics("john") == []
     end
 
-    test "finds all rushing statistics" do
+    test "finds only rushing statistics by players' name" do
       stat_one = insert!(:rushing_statistics, %{name: "John Stone"})
       _stat_two = insert!(:rushing_statistics, %{name: "Max Smith"})
       assert NflRushing.search_rushing_statistics("john") == [stat_one]
