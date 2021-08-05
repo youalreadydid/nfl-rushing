@@ -3,7 +3,6 @@ defmodule NflRushing.Repo.Migrations.AddLongestRushTouchdownToRushingStatistics 
 
   def change do
     alter table(:rushing_statistics) do
-      remove :longest_rush
       add :longest_rush, :integer
       add :longest_rush_touchdown, :boolean
     end

@@ -64,5 +64,3 @@ defmodule ImportRushingStatisticsData do
     end
   end
 end
-
-ImportRushingStatisticsData.run()
