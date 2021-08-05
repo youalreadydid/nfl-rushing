@@ -5,12 +5,12 @@ defmodule NflRushingWeb.RushingStatisticsLiveTest do
   test "renders title and empty statistics table when disconnected", %{conn: conn} do
     {:ok, _live, disconnected} = live(conn, "/")
     assert disconnected =~ "NFL Rushing"
-    assert disconnected =~ "<tr></tr>"
+    assert disconnected =~ "</th></tr></table>"
   end
 
   test "renders no statistics", %{conn: conn} do
     {:ok, live, _disconnected} = live(conn, "/")
-    assert render(live) =~ "<tr></tr>"
+    assert render(live) =~ "</th></tr></table>"
   end
 
   test "renders all rushing statistics", %{conn: conn} do

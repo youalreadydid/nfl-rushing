@@ -1,6 +1,5 @@
 defmodule NflRushingWeb.RushingStatisticsLive do
   @moduledoc false
-
   use NflRushingWeb, :live_view
 
   @impl true
@@ -13,15 +12,15 @@ defmodule NflRushingWeb.RushingStatisticsLive do
     {search, sort, order} = parse_params(params)
     stats = NflRushing.search_rushing_statistics(search, sort: sort, order: order)
 
-    {:noreply,
-     assign(socket, rushing_statistics: stats, search: search, sort: sort, order: order)}
+    params = [rushing_statistics: stats, search: search, sort: sort, order: order]
+    {:noreply, assign(socket, params)}
   end
 
   @sort_fields ~w(total_yards longest_rush total_touchdowns)
   defp parse_params(params) do
     search = params["search"] || ""
-    sort = if params["sort"] in @sort_fields, do: String.to_atom(params["sort"])
-    order = if params["order"] == "desc", do: :desc, else: :asc
+    sort = if to_string(params["sort"]) in @sort_fields, do: String.to_atom(params["sort"])
+    order = if to_string(params["order"]) == "desc", do: :desc, else: :asc
     {search, sort, order}
   end
 
