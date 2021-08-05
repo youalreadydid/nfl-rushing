@@ -59,7 +59,7 @@ You need to install [Docker](https://docs.docker.com/get-docker/) and [docker-co
 
 To access the solution at `http://localhost:4000`, navigate to the project root folder in a terminal and run:
 ```bash
-$ docker-compose run --rm dev mix run priv/repo/seeds.exs
+$ docker-compose run --rm dev mix do ecto.setup, run priv/repo/seeds.exs
 $ docker-compose up dev
 ```
 
