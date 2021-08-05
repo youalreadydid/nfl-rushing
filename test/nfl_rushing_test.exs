@@ -90,4 +90,103 @@ defmodule NflRushingTest do
              ]
     end
   end
+
+  describe "stream_rushing_statistics/4" do
+    test "finds no rushing statistics" do
+      fun = fn stream -> assert Enum.to_list(stream) == [] end
+      assert NflRushing.stream_rushing_statistics("", nil, nil, fun) == {:ok, true}
+    end
+
+    test "finds all rushing statistics" do
+      stat_one = insert!(:rushing_statistics, %{name: "John Stone"})
+      stat_two = insert!(:rushing_statistics, %{name: "Max Smith"})
+      fun = fn stream -> assert Enum.to_list(stream) == [stat_one, stat_two] end
+      assert NflRushing.stream_rushing_statistics("", nil, nil, fun) == {:ok, true}
+    end
+
+    test "finds only rushing statistics by players' name" do
+      stat_one = insert!(:rushing_statistics, %{name: "John Stone"})
+      stat_two = insert!(:rushing_statistics, %{name: "John Stone"})
+      _stat_three = insert!(:rushing_statistics, %{name: "Max Smith"})
+
+      fun = fn stream -> assert Enum.to_list(stream) == [stat_one, stat_two] end
+      assert NflRushing.stream_rushing_statistics("john", nil, nil, fun) == {:ok, true}
+    end
+
+    test "sorts rushing statistics by longest rush" do
+      stat_big = insert!(:rushing_statistics, %{longest_rush: 19, longest_rush_touchdown: true})
+
+      stat_medium =
+        insert!(:rushing_statistics, %{longest_rush: 19, longest_rush_touchdown: false})
+
+      stat_small = insert!(:rushing_statistics, %{longest_rush: 2})
+
+      fun = fn stream ->
+        assert Enum.to_list(stream) == [
+                 stat_small,
+                 stat_medium,
+                 stat_big
+               ]
+      end
+
+      assert NflRushing.stream_rushing_statistics("", :longest_rush, :asc, fun) == {:ok, true}
+
+      fun = fn stream ->
+        assert Enum.to_list(stream) == [
+                 stat_big,
+                 stat_medium,
+                 stat_small
+               ]
+      end
+
+      assert NflRushing.stream_rushing_statistics("", :longest_rush, :desc, fun) == {:ok, true}
+    end
+
+    test "sorts rushing statistics by total touchdowns" do
+      stat_big = insert!(:rushing_statistics, %{total_touchdowns: 10})
+      stat_small = insert!(:rushing_statistics, %{total_touchdowns: 2})
+
+      fun = fn stream ->
+        assert Enum.to_list(stream) == [
+                 stat_small,
+                 stat_big
+               ]
+      end
+
+      assert NflRushing.stream_rushing_statistics("", :total_touchdowns, :asc, fun) == {:ok, true}
+
+      fun = fn stream ->
+        assert Enum.to_list(stream) == [
+                 stat_big,
+                 stat_small
+               ]
+      end
+
+      assert NflRushing.stream_rushing_statistics("", :total_touchdowns, :desc, fun) ==
+               {:ok, true}
+    end
+
+    test "sorts rushing statistics by total yards" do
+      stat_big = insert!(:rushing_statistics, %{total_yards: 123})
+      stat_small = insert!(:rushing_statistics, %{total_yards: 33})
+
+      fun = fn stream ->
+        assert Enum.to_list(stream) == [
+                 stat_small,
+                 stat_big
+               ]
+      end
+
+      assert NflRushing.stream_rushing_statistics("", :total_yards, :asc, fun) == {:ok, true}
+
+      fun = fn stream ->
+        assert Enum.to_list(stream) == [
+                 stat_big,
+                 stat_small
+               ]
+      end
+
+      assert NflRushing.stream_rushing_statistics("", :total_yards, :desc, fun) == {:ok, true}
+    end
+  end
 end

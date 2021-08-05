@@ -11,9 +11,14 @@ defmodule NflRushing do
     order = Keyword.get(opts, :order)
 
     RushingStatistics
-    |> where([s], like(s.name, ^search_name))
-    |> order_rushing_statistics_by(sort, order)
+    |> rushing_statistics_query(search_name, sort, order)
     |> Repo.all()
+  end
+
+  defp rushing_statistics_query(query, name, sort, order) do
+    query
+    |> where([s], like(s.name, ^name))
+    |> order_rushing_statistics_by(sort, order)
   end
 
   defp order_rushing_statistics_by(query, field, order) do
@@ -32,5 +37,17 @@ defmodule NflRushing do
     else
       query
     end
+  end
+
+  @spec stream_rushing_statistics(String.t(), atom(), atom(), function()) ::
+          {:ok, any()} | {:error, any()}
+  def stream_rushing_statistics(name, sort, order, callback) do
+    search_name = "%#{name}%"
+
+    Repo.transaction(fn ->
+      query = rushing_statistics_query(RushingStatistics, search_name, sort, order)
+      stream = Repo.stream(query)
+      callback.(stream)
+    end)
   end
 end
