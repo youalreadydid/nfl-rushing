@@ -52,8 +52,11 @@ defmodule NflRushingWeb.RushingStatisticsControllerTest do
     end
 
     test "sends csv with all sorted rushing statistics", %{conn: conn} do
-      first_rows = 1..200 |> Enum.map(&(insert!(:rushing_statistics, %{total_yards: &1}))) |> csv_rows()
-      last_rows = 1..150 |> Enum.map(&(insert!(:rushing_statistics, %{total_yards: 200 + &1}))) |> csv_rows()
+      first_rows =
+        1..200 |> Enum.map(&insert!(:rushing_statistics, %{total_yards: &1})) |> csv_rows()
+
+      last_rows =
+        1..150 |> Enum.map(&insert!(:rushing_statistics, %{total_yards: 200 + &1})) |> csv_rows()
 
       pid = self()
 
