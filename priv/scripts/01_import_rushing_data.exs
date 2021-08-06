@@ -50,7 +50,7 @@ defmodule ImportRushingStatisticsData do
 
   defp parse_total_yards(stat) do
     {total_yards, ""} =
-      stat["Yds"] |> to_string() |> String.replace(~r/[^\d|\.]/, "") |> Integer.parse()
+      stat["Yds"] |> to_string() |> String.replace(~r/[^\d|\.|\-]/, "") |> Integer.parse()
 
     total_yards
   end
