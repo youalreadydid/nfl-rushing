@@ -4,11 +4,6 @@ defmodule ImportRushingStatisticsData do
 
   @path "#{File.cwd!()}/rushing.json"
 
-  @fields ~w(name team position attemps attemps_per_game_average total_yards
-             average_yards_per_attempt yards_per_game total_touchdowns longest_rush
-             first_downs first_down_percentage yards_each_20_plus yards_each_40_plus
-             fumbles)a
-
   def run(path \\ @path) do
     path
     |> File.stream!()
