@@ -57,8 +57,10 @@ If you have any questions regarding requirements, do not hesitate to email your 
 
 You need to install [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) to run this solution.
 
-To access the solution at `http://localhost:4000`, navigate to the project root folder in a terminal and run:
+To access the solution at `http://localhost:4000`, run:
 ```bash
+$ git clone https://github.com/youalreadydid/nfl-rushing.git
+$ cd nfl-rushing
 $ docker-compose run --rm dev mix do setup, run priv/repo/seeds.exs
 $ docker-compose up dev
 ```

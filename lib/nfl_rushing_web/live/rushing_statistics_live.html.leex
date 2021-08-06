@@ -1,17 +1,17 @@
-<section class="row">
+<section name="header" class="row">
   <div class="column">
-    <form phx-submit="search">
+    <form phx-submit="search" class="searchbar">
       <input type="text" name="q" value="<%= @search %>" placeholder="Player's name" autocomplete="on"/>
       <button type="submit" phx-disable-with="Searching...">Search</button>
     </form>
   </div>
   <div class="column">
     <% url = "/csv?search=#{@search}&sort=#{@sort}&order=#{@order}" %>
-    <a download href="<%= url %>">Export CSV</a>
+    <div class="export"><a download href="<%= url %>">🖫 Export CSV</a></div>
   </div>
 </section>
 <section name="statistics" class="row">
-  <table style="width:100%">
+  <table>
     <%= live_component NflRushingWeb.StatisticsHeaderComponent, search: @search, sort: @sort, order: @order %>
     <%= for stat <- @rushing_statistics do %>
       <%= live_component NflRushingWeb.StatisticsRowComponent, rushing_statistics: stat %>

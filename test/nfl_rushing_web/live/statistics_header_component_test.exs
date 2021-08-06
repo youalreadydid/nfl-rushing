@@ -10,8 +10,8 @@ defmodule NflRushingWeb.StatisticsHeaderComponentTest do
                  <th>Player</th>
                  <th>Team</th>
                  <th>Pos</th>
-                 <th>Att/G</th>
                  <th>Att</th>
+                 <th>Att/G</th>
                  <th><a data-phx-link=\"patch\" data-phx-link-state=\"push\" href=\"/?order=desc&amp;search=joe&amp;sort=total_yards\">Yds</a></th>
                  <th>Avg</th>
                  <th>Yds/G</th>
@@ -35,8 +35,8 @@ defmodule NflRushingWeb.StatisticsHeaderComponentTest do
                  <th>Player</th>
                  <th>Team</th>
                  <th>Pos</th>
-                 <th>Att/G</th>
                  <th>Att</th>
+                 <th>Att/G</th>
                  <th><a data-phx-link=\"patch\" data-phx-link-state=\"push\" href=\"/?order=asc&amp;search=joe&amp;sort=total_yards\">Yds↓</a></th>
                  <th>Avg</th>
                  <th>Yds/G</th>
@@ -60,8 +60,8 @@ defmodule NflRushingWeb.StatisticsHeaderComponentTest do
                  <th>Player</th>
                  <th>Team</th>
                  <th>Pos</th>
-                 <th>Att/G</th>
                  <th>Att</th>
+                 <th>Att/G</th>
                  <th><a data-phx-link=\"patch\" data-phx-link-state=\"push\" href=\"/?order=&amp;search=joe&amp;sort=\">Yds↑</a></th>
                  <th>Avg</th>
                  <th>Yds/G</th>

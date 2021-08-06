@@ -9,8 +9,8 @@ defmodule NflRushingWeb.StatisticsHeaderComponent do
         <th>Player</th>
         <th>Team</th>
         <th>Pos</th>
-        <th>Att/G</th>
         <th>Att</th>
+        <th>Att/G</th>
         <th><%= render_sorted_column(assigns, "Yds", :total_yards) %></th>
         <th>Avg</th>
         <th>Yds/G</th>

@@ -19,7 +19,7 @@ defmodule NflRushingWeb.RushingStatisticsController do
       |> send_chunked(:ok)
 
     NflRushing.stream_rushing_statistics(search, sort, order, fn stream ->
-      header = ~w(Player Team Pos Att/G Att Yds Avg Yds/G TD Lng 1st 1st% 20+ 40+ FUM)
+      header = ~w(Player Team Pos Att Att/G Yds Avg Yds/G TD Lng 1st 1st% 20+ 40+ FUM)
       row = NimbleCSV.RFC4180.dump_to_iodata([header])
       chunk(conn, row)
 
