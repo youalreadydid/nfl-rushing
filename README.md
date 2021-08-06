@@ -69,3 +69,10 @@ To run the test suite, type the following command:
 ```bash
 $ docker-compose run --rm test
 ```
+
+To help a fellow developer that will review this project:
+- This was made with LiveView (I've learned it while doing this project, sorry in advance haha), you can find the main "controller" at `lib/nfl_rushing_web/live/rushing_statistics_live.ex`;
+- But I couldn't use LiveView to send the .csv with the statistics, so you can find the controller for it at `lib/nfl_rushing_web/controllers/rushing_statistics_controller.ex`;
+- The script to import the statistics is integrated on the seeds and is located at `priv/scripts/01_import_rushing_data.exs`;
+- The "context" is at `lib/nfl_rushing.ex`. I don't usually specialize a context until it's really needed, what do you think?;
+- I also don't like to write documentation besides the README or some very specific logic that the code isn't enough, but you can try to convince me I'm wrong hehehe
