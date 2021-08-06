@@ -2,6 +2,21 @@
 @import "./phoenix.css";
 @import "../node_modules/nprogress/nprogress.css";
 
+.searchbar{
+  display: flex;
+  align-content: center;
+}
+
+.export{
+  display: flex !important;
+  align-content: center;
+  justify-content: flex-end;
+
+  a {
+    align-self: center;
+  }
+}
+
 /* LiveView specific classes for your customizations */
 .phx-no-feedback.invalid-feedback,
 .phx-no-feedback .invalid-feedback {
