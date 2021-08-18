@@ -189,4 +189,49 @@ defmodule NflRushingTest do
       assert NflRushing.stream_rushing_statistics("", :total_yards, :desc, fun) == {:ok, true}
     end
   end
+
+  describe "list_aggregated_rushing_statistics_by_team/0" do
+    test "finds no rushing statistics" do
+      assert NflRushing.list_aggregated_rushing_statistics_by_team() == []
+    end
+
+    test "finds rushing statistics by team" do
+      _stat_one =
+        insert!(:rushing_statistics, %{
+          name: "John Stone",
+          team: "NYG",
+          total_yards: 100,
+          longest_rush: 10
+        })
+
+      _stat_two =
+        insert!(:rushing_statistics, %{
+          name: "Max Smith",
+          team: "NYG",
+          total_yards: 50,
+          longest_rush: 4
+        })
+
+      _stat_three =
+        insert!(:rushing_statistics, %{
+          name: "John Stone",
+          team: "ANO",
+          total_yards: 200,
+          longest_rush: 5
+        })
+
+      _stat_four =
+        insert!(:rushing_statistics, %{
+          name: "Max Smith",
+          team: "ANO",
+          total_yards: 100,
+          longest_rush: 11
+        })
+
+      assert NflRushing.list_aggregated_rushing_statistics_by_team() == [
+               %{team: "ANO", total_yards: 300, longest_rush: 11},
+               %{team: "NYG", total_yards: 150, longest_rush: 10}
+             ]
+    end
+  end
 end

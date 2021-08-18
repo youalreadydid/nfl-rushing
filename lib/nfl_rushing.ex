@@ -50,4 +50,16 @@ defmodule NflRushing do
       callback.(stream)
     end)
   end
+
+  @spec list_aggregated_rushing_statistics_by_team() :: list(map())
+  def list_aggregated_rushing_statistics_by_team do
+    RushingStatistics
+    |> group_by([rs], rs.team)
+    |> select([rs], %{
+      team: rs.team,
+      total_yards: sum(rs.total_yards),
+      longest_rush: max(rs.longest_rush)
+    })
+    |> Repo.all()
+  end
 end
