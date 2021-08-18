@@ -8,4 +8,8 @@ defmodule NflRushingWeb.RushingTeamStatisticsLiveTest do
     assert disconnected =~ "</th></tr></table>"
   end
 
+  test "renders no statistics", %{conn: conn} do
+    {:ok, live, _disconnected} = live(conn, "/team")
+    assert render(live) =~ "</th></tr></table>"
+  end
 end
