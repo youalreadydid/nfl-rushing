@@ -4,7 +4,8 @@ defmodule NflRushingWeb.RushingTeamStatisticsLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, rushing_statistics: [])}
-  end
+    stats = NflRushing.list_aggregated_rushing_statistics_by_team()
 
+    {:ok, assign(socket, rushing_statistics: stats)}
+  end
 end

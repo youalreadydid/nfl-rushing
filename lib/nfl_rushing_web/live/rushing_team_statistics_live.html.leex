@@ -11,9 +11,14 @@
       <th>Lng</th>
     </tr>
     <tr>
-      <td>NYG</td>
-      <td>150</td>
-      <td>10T</td>
+    <%= for stat <- @rushing_statistics do %>
+      <tr>
+        <td><%= stat.team %></td>
+        <td><%= stat.total_yards %></td>
+        <td><%= stat.longest_rush %></td>
+      </tr>
+    <% end %>
+    <td></td>
     </tr>
   </table>
 </section>
